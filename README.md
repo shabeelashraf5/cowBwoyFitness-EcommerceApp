@@ -24,5 +24,5 @@ An e-commerce platform built with EJS, Node.js, Express.js, and Mongoose. This a
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/ecommerce-app.git
-cd ecommerce-app
+git clone https://github.com/shabeelashraf5/cowBwoyFitness-EcommerceApp.git
+
