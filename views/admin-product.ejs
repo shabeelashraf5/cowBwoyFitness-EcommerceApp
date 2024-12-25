@@ -1,0 +1,120 @@
+
+<%- include('./partials/adminpanel-layout') %>
+<main style="margin-top: 58px;">
+  <div class="container bg-light" style="width: 100%; height: 600px;"  >
+
+      <section class="p-md-2 mx-md-2 text-center text-lg-left grey z-depth-1">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-12">
+              
+                <div class="mt-3">
+                  
+                <a href="/admin/product/create"><input class="btn btn-dark "  type="button" value="Create" ></a>
+                </div>
+        
+        <div class="mt-4">
+               <table id="example" class="table table-striped" style="width:100%">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Image</th>
+                        <th>Gender</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+                 
+                  <% proDetails.forEach(proddetails =>{%>
+                      
+                    <tr>
+                        <td><%= proddetails._id %></td>
+                        <td><%= proddetails.title %></td>
+                        <td><%= proddetails.category_id ? proddetails.category_id.title : ' ' %></td>
+                        <td>
+                          <% proddetails.image.forEach(image => { %>
+                          <img src="/images/<%= image %>" style="width: 50px; height: 50px;" alt="">
+                          <% }); %>
+                        </td>
+                        <td><%= proddetails.gender %></td>
+                        <td><%= proddetails.price %></td>
+                        <td>
+                          <div class="description">
+                            <%= proddetails.description.substring(0, 50) %>
+                            <span class="read-more">... <a href="">Read more</a></span>
+                            <span class="full-description" style="display: none;"><%= proddetails.description %></span>
+                            <span class="read-less" style="display: none;"> <a href="#">Read less</a></span>
+                          </div>
+                        </td>
+                      
+                        <td>
+                          <form action="/admin/product/<%= proddetails._id %>/active" method="post">
+                              <button type="submit" name="active" class="btn btn-success" value="<%= !proddetails.active %>">
+                                <%= proddetails.active ? 'Deactivate' : 'Activate' %> 
+                              </button>
+                            </form>
+                        </td>
+                        <td><a href="/admin/product/update/<%= proddetails._id %>" class="btn btn-primary " >Edit</a></td>
+                        
+                    </tr>
+
+                    <%})%>
+                  
+                </tbody>
+             
+            </table>
+                
+        </div>
+             </div>   
+           
+        </div>
+        
+        </section>
+
+  
+  </div>
+
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+
+  <script>
+
+    $(document).ready(function() {
+      $('.description .read-more a').click(function(event) {
+        event.preventDefault();
+        $(this).closest('.description').find('.full-description').show();
+        $(this).closest('.description').find('.read-more').hide();
+        $(this).closest('.description').find('.read-less').show();
+      });
+  
+      $('.description .read-less a').click(function(event) {
+        event.preventDefault();
+        $(this).closest('.description').find('.full-description').hide();
+        $(this).closest('.description').find('.read-more').show();
+        $(this).closest('.description').find('.read-less').hide();
+      });
+    });
+  </script>
+
+  
+
+  
+  <script>
+  
+   $(document).ready(function () {
+      $('#example').DataTable();
+  });
+  </script>
+
+
+ 
+</main>
+
+

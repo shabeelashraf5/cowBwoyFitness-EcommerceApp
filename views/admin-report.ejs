@@ -1,0 +1,45 @@
+<%- include('./partials/adminpanel-layout') %>
+
+<main style="margin-top: 58px;">
+    <div class="container bg-light" style="width: 100%; height: 600px;"  >
+
+        <h1>Sales Report</h1>
+        <p>Generated on <%= new Date().toLocaleDateString() %></p>
+        
+        <p>Download:</p>
+        <ul>
+          <li><a href="/sales_report.xlsx" download>Excel</a></li>
+          <li><a href="/sales_report.pdf" download>PDF</a></li>
+        </ul>
+        
+        <form id="download-form" method="post">
+          <input type="hidden" name="excelBuffer" value="<%= excelBuffer.toString('base64') %>">
+          <input type="hidden" name="pdfBuffer" value="<%= pdfBuffer.toString('base64') %>">
+        </form>
+        
+        <script>
+          const downloadForm = document.getElementById('download-form');
+          const excelLink = document.querySelector('a[href="/sales_report.xlsx"]');
+          const pdfLink = document.querySelector('a[href="/sales_report.pdf"]');
+          excelLink.addEventListener('click', e => {
+            e.preventDefault();
+            downloadForm.action = '/admin/download/excel';
+            downloadForm.submit();
+          });
+          pdfLink.addEventListener('click', e => {
+            e.preventDefault();
+            downloadForm.action = '/admin/download/pdf';
+            downloadForm.submit();
+          });
+        </script>
+
+
+
+</div>
+</main>
+
+
+
+
+
+

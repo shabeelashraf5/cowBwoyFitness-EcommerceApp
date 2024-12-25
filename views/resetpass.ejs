@@ -1,0 +1,41 @@
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+    
+<section class="" style="margin-top: 120px;">
+  <div class="container ">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card" >
+          <div class="card-body text-center">
+
+            <form action="/login-recover" method="post">
+            
+              <div class="mb-md-5 mt-md-4 ">
+                
+                
+                <h2 class="fw-bold  text-uppercase">RESET PASSWORD</h2>
+                <p class="text-dark-50 ">We will send you an email to reset your password</p>
+                
+                <div class="form-outline form-white ">
+                  <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email" />
+                  <label class="form-label" for="typeEmailX"></label>
+                </div>
+  
+              </div>
+            
+                <button class="btn btn-outline-dark btn-lg " type="submit">Submit</button>
+                <p class="pt-3"><a href="/login" class="text-dark fw-bold ">Cancel</a> </p>
+  
+             
+            </form>
+        
+        
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      
+<%- include('./partials/footer') %>

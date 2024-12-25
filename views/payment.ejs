@@ -1,0 +1,202 @@
+<%- include('./partials/lsheader') %>
+
+<nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top  " style="margin-top: 54px;">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand fs-4" href="/">COWBWOY</a>
+
+       
+
+    </div>
+
+    <!-- Container wrapper -->
+</nav>
+
+
+
+
+<section class="" style="margin-top: 150px;">
+    
+        <div class="container ">
+         
+          <nav class="navbar">
+            <div class="container-fluid">
+            </div>
+            <a class="navbar-brand" href="/cart"><h6>Cart</h6></a> 
+            <a class="navbar-brand me-auto" href="/checkout"><h6>> Information </h6></a>
+           
+          </nav>
+
+            <div class="row row-cols-2">
+              <div class="col-md-6 col-12">
+
+                <div class="card mb-4">
+                    
+                    <div class="card-body">
+                     
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                          Contact
+                          <span>  
+                            <% let customerDisplayed = false %>
+
+
+                            <% cartItems.forEach(function(item) { %>
+                            <% if (!customerDisplayed) { %>
+                          
+                            <p><%= item.customers_id.email %></p>
+                            <% customerDisplayed = true %>
+                            <% } %>
+                            <p><%= item.product_id.name %></p>
+                            <% }); %>
+                           
+                            
+                          </span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                          <div>
+                            <strong>Ship to</strong>
+                            
+                          </div>
+                          <span> 
+
+                            <p><%= selectedAddress.address[0].address %></p>
+                            <p><%= selectedAddress.address[0].city %>, <%= selectedAddress.address[0].state %> <%= selectedAddress.address[0].country %></p>
+                            
+                          </span>
+                        </li>
+                      </ul>
+              
+                     
+                    </div>
+                  </div>
+
+                     <form method="POST" action="/checkout/order">
+                    <div class="form-group">
+                      <label for="paymentMethod">Payment Method</label>
+                      <div class="card mb-4">
+                        <div class="card-body">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cashondelivery" value="cashondelivery">
+                                <label class="form-check-label" for="cashondelivery">
+                                  Cash on Delivery
+                                </label>
+                              </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                              <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="onlinepayment" value="onlinepayment">
+                                <label class="form-check-label" for="onlinepayment">
+                                  Online Payment
+                                </label>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark">Place Order</button>
+                  </form>
+
+                  
+              </div>
+
+              <div class="col-md-6 col-12">
+
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Product</th>
+                                  
+                                  <th scope="col">Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <% let total = 0; %>
+                                <% let subtotal = 0; %>
+                                <% cartItems.forEach(function(cartItem) { %>
+                                  <% const product = cartItem.product_id; %>
+                                  <% const category = product.category_id; %>
+                                
+                                  <tr>
+                                    <th scope="row">
+                                      <div class="d-flex align-items-center">
+                                        <img src="/images/<%= product.image[0] %>" class="img-fluid rounded-3" style="width: 50px; height: 50px;" alt="">
+                                        <div class="flex-column ms-4">
+                                          <p class="mb-2"></p>
+                                          <p class="mb-0"><%= product.title %></p>
+                                        
+                                        </div>
+                                      </div>
+                                    </th>
+                                    
+                                    <td class="align-middle">
+                                      <p class="mb-0" style="font-weight: 500;">₹ <%= product.price %> </p>
+                                    
+                                      <% subtotal += product.price %>
+                                    </td>
+                                  </tr>
+                                  <% }); %>
+                              </tbody>
+                            </table>
+                          </div>
+                          <form class="d-flex" role="form" method="GET" action="/checkout/payment">
+                            <input class="form-control me-2" type="text" name="code" placeholder="Enter Code" aria-label="Coupon Code">
+                            <input type="hidden" name="addressId" value="<%= selectedAddress._id %>">
+                            <button class="btn btn-outline-dark" type="submit">APPLY</button>
+                          </form>
+                            
+                            
+
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                          Sub Total
+                          <span>₹ <%= subtotal %> </span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                          Discount 
+                          <span>₹ <%= discount %>   </span>
+                          
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                          <div>
+                            <strong>Total Amount</strong>
+                            
+                          </div>
+                          <% 
+                           var totalAmount = subtotal - discount;
+                           %>
+                          <span><strong>₹ <%= totalAmount %> </strong></span>
+                        </li>
+                      </ul>
+              
+                     
+                    </div>
+                  </div>
+
+
+
+
+              </div>
+            
+            </div>
+          </div>
+           
+          
+          
+      </div>
+  </section>
+  

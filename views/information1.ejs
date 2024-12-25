@@ -1,0 +1,291 @@
+<%- include('./partials/lsheader') %>
+
+<nav class="navbar navbar-expand-lg bg-light navbar-light fixed-top  " style="margin-top: 54px;">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand fs-4" href="/">COWBWOY</a>
+
+       
+
+    </div>
+
+    <!-- Container wrapper -->
+</nav>
+
+
+
+
+<section class="" style="margin-top: 150px;">
+    <div class="container ">
+
+
+        <nav class="navbar">
+            <div class="container-fluid">
+            </div>
+            <a class="navbar-brand" href="/cart"><h6>Cart</h6></a> 
+            
+            
+          </nav>
+
+
+            <div class="row row-cols-2">
+              <div class="col-md-6 col-12">
+
+                <div class="card mb-4">
+                    
+                    <div class="card-body">
+
+                        
+
+                      <ul class="list-group list-group-flush">
+                        
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                            <strong>Contact Information</strong>
+                          
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            
+                        </li>
+                       
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                <div>
+                                  
+                                    <ul>
+                                        <% let customerDisplayed = false %>
+
+
+                                        <% cartItems.forEach(function(item) { %>
+                                        <% if (!customerDisplayed) { %>
+                                        <h6><%= item.customers_id.fname %> <%= item.customers_id.lname %></h6>
+                                        <p>(<%= item.customers_id.email %>)</p>
+                                        <% customerDisplayed = true %>
+                                        <% } %>
+                                        <p><%= item.product_id.name %></p>
+                                        <% }); %>
+                                        <% addressList.forEach(function(address) { %>
+
+                                         <% }); %>
+                                      </ul>
+                                  </div>
+                                 
+                            </li>
+                         
+                      </ul>
+              
+                     
+                    </div>
+                  </div>
+
+            <h4 class="mt-1">Select Your Address</h4>
+                
+                <button type="button" class="btn btn-dark mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Add New Address</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Address</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="/checkout/address" method="post">
+
+                            <div class="form-outline mb-4">
+                                <input type="text" name="address[].country" id="form7Example3" class="form-control" placeholder="Country/region" required pattern="[a-zA-Z]+" />
+                                <label class="form-label" for="form7Example3"></label>
+                                <div class="invalid-feedback">Please enter a valid country name.</div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input type="text" name="address[].fname"  id="form7Example1" class="form-control" placeholder="First Name" required pattern="[a-zA-Z]+" />
+                                        <label class="form-label" for="form7Example1"></label>
+                                        <div class="invalid-feedback">Please enter a valid first name.</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input type="text" name="address[].lname" id="form7Example2" class="form-control" placeholder="Last Name" required pattern="[a-zA-Z]+" />
+                                        <label class="form-label" for="form7Example2"></label>
+                                        <div class="invalid-feedback">Please enter a valid last name.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="form-outline mb-4">
+                                <input type="text" name="address[].address" id="form7Example3" class="form-control" placeholder="Address" required />
+                                <label class="form-label" for="form7Example3"></label>
+                                <div class="invalid-feedback">Please enter a valid address.</div>
+                            </div>
+                                    
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input type="text" name="address[].city" id="form7Example1" class="form-control" placeholder="City" required pattern="[a-zA-Z]+" />
+                                        <label class="form-label" for="form7Example1"></label>
+                                        <div class="invalid-feedback">Please enter a valid city name.</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <input type="text" name="address[].state" id="form7Example2" class="form-control" placeholder="State" required pattern="[a-zA-Z]+" />
+                                        <label class="form-label" for="form7Example2"></label>
+                                        <div class="invalid-feedback">Please enter a valid state name.</div>
+                                    </div>
+                                </div>
+                            </div>
+                                              
+                            <div class="form-outline mb-4">
+                                <input type="number" name="address[].phone" id="form7Example6" class="form-control" placeholder="Phone" required />
+                                <label class="form-label" for="form7Example6"></label>
+                                <div class="invalid-feedback">Please enter a valid phone number.</div>
+                            </div>
+                                              
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-dark">Save Address</button>
+                            </div>
+                                                        
+                        </form>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                 
+                  <% if (addressList.length === 0) { %>
+                    <p>No Addresses Found</p>
+                  <% } else { %>
+                  <form action="/checkout/payment" method="get">
+                    <div class="address-section">
+                  <% addressList.forEach(function(address) { %>
+                    <div class="card mt-3">
+                      <div class="card-body">
+                        <h5 class="card-title"><%= address.address[0].fname %> <%= address.address[0].lname %></h5>
+                        <p class="card-text"><%= address.address[0].address %><br><%= address.address[0].city %>, <%= address.address[0].state %> <%= address.address[0].country %><br><%= address.address[0].phone %></p>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="addressId" id="<%= address._id %>" value="<%= address._id %>">
+                          <label class="form-check-label" for="<%= address._id %>">Select this address</label>
+                        </div>
+                        <a href="/checkout/address/delete/<%= address._id %>" onclick="return confirm('Are you sure to delete');" class="btn btn-danger ">Delete</a>
+                        
+                      </div>
+                    </div>
+                  <% }); %>
+                </div>
+                <div class="form-check d-flex justify-content-between mb-2">
+                <p  ><a href="/cart" class="text-dark fw-bold text-decoration-none ">< Return to Cart</a> </p>
+                <button type="submit" class="btn btn-dark mt-3">Continue to Shipping</button>
+                </div>
+                </form>
+                <% } %>
+                  
+
+                  
+
+
+                  
+              </div>
+
+              <div class="col-md-6 col-12">
+
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Product</th>
+                                  
+                                  <th scope="col">Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <% let total = 0; %>
+                                <% let subtotal = 0; %>
+                                <% cartItems.forEach(function(cartItem) { %>
+                                  <% const product = cartItem.product_id; %>
+                                  <% const category = product.category_id; %>
+                                
+                                  <tr>
+                                    <th scope="row">
+                                      <div class="d-flex align-items-center">
+                                        <img src="/images/<%= product.image[0] %>" class="img-fluid rounded-3" style="width: 50px; height: 50px;" alt="">
+                                        <div class="flex-column ms-4">
+                                          <p class="mb-2"></p>
+                                          <p class="mb-0"><%= product.title %></p>
+                                        
+                                        </div>
+                                      </div>
+                                    </th>
+                                    
+                                    <td class="align-middle">
+                                      <p class="mb-0" style="font-weight: 500;">₹ <%= product.price * cartItem.quantity %> </p>
+                                      <% subtotal += product.price * cartItem.quantity %>
+                                      <% total += product.price * cartItem.quantity %>
+                                    </td>
+                                  </tr>
+                                  <% }); %>
+                              </tbody>
+                            </table>
+                          </div>
+                          
+                    </div>
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                          Sub Total
+                          <span>₹ <%= subtotal %> </span>
+                        </li>
+                       
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                          <div>
+                            <strong>Total Amount</strong>
+                            
+                          </div>
+                         
+                          <span><strong>₹ <%= total %> </strong></span>
+                        </li>
+                      </ul>
+              
+                     
+                    </div>
+                  </div>
+
+
+
+
+              </div>
+            
+            </div>
+          </div>
+           
+          
+          
+      </div>
+  </section>
+
+
+<script>
+
+$(document).ready(function() {
+  $('form[action="/checkout/payment"]').submit(function(event) {
+    // Check if an address has been selected
+    if (!$('input[name="addressId"]:checked').val()) {
+      // Prevent the form from submitting
+      event.preventDefault();
+      // Display an error message
+      alert('Please select an address to continue to shipping.');
+    }
+  });
+});
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+ 

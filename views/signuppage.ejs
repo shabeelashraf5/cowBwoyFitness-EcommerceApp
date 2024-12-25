@@ -1,0 +1,79 @@
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+
+
+<section class="" style="margin-top: 150px;">
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center ">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card" >
+            <div class="card-body text-center">
+  
+        
+                 
+  
+              <form action="/signup" method="post">
+   
+              <div class="mb-md-5 mt-md-4 ">
+  
+                <h2 class="fw-bold  text-uppercase">CREATE ACCOUNT</h2>
+                
+                <% if(typeof registration !== "undefined"){ %>
+                  <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                  <p><%= registration %></p>
+                </div>
+                  <% } %>
+
+                  <% if(typeof error !== "undefined"){ %>
+                    <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                    <p><%= error%></p>
+                  </div>
+                    <% } %>
+
+                    <% if(typeof error1 !== "undefined"){ %>
+                      <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                      <p><%= error1 %></p>
+                    </div>
+                      <% } %>
+                
+                <div class="form-outline form-white ">
+                  <input type="text" name="fname" id="typefsX" class="form-control form-control-lg" placeholder="First Name" value="<%= typeof data != "undefined" ? data.fname :'' %>" />
+                  <label class="form-label" for="typefsX"></label>
+                </div>
+  
+                <div class="form-outline form-white ">
+                  <input type="text" name="lname" id="typelsX" class="form-control form-control-lg" placeholder="Last Name" value="<%= typeof data != "undefined" ? data.lname :'' %>" />
+                  <label class="form-label" for="typelsX"></label>
+                </div>
+               
+  
+                <div class="form-outline form-white ">
+                  <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email" value="<%= typeof data != "undefined" ? data.email :'' %>" />
+                  <label class="form-label" for="typeEmailX"></label>
+                </div>
+  
+                <div class="form-outline form-white ">
+                  <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password" value="<%= typeof data != "undefined" ? data.password :'' %>" /> 
+                  <label class="form-label" for="typePasswordX"></label>
+                </div>
+  
+          
+  
+                <button class="btn btn-outline-dark btn-lg" type="submit">Sign Up</button>
+                
+              </div>
+              <p class="text-center text-muted mt-3 mb-0">Have already an account? <a href="/login"
+                  class="fw-bold text-body"><u>Login here</u></a></p>
+            </form>
+  
+            
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<%- include('./partials/footer') %>

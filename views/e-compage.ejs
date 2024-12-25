@@ -1,0 +1,127 @@
+
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+
+
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="margin-top: 100px;">
+  <div class="carousel-inner">
+    <% for (let i = 0; i < banner.length; i++) { %>
+      <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+        <img src="/images/<%= banner[i] %>" class="d-block w-100 banner-image" alt="...">
+        <div class="carousel-caption">
+          <div class="responsive-text">
+            <p>GYM <span style="color: red;"><b><i>WEAR</i></b></span></p>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+  
+  <div class="carousel-button-container">
+    <button type="button" class="btn btn-outline-danger custom-btn">
+      <a class="text-decoration-none text-white" href="/product">SHOP NOW</a>
+    </button>
+  </div>
+
+ 
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+
+<div class="container position-relative" style="margin-top: 50px;">
+<div class="row">
+    <div class="col-12 col-md-6 ">
+       
+      <div class="card " >
+        <img src="/photos/MicrosoftTeams-image_196.jpg" class="card-img-top "  alt="...">
+        <button type="button" class="btn btn-outline-success position-absolute " style="bottom: 20%; right: 10%;"><a class=" text-decoration-none text-white" href="/product/shop-men"> SHOP MEN</a> </button>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <img src="/photos/MicrosoftTeams-image_195.jpg" class="card-img-top"  alt="...">
+        <button type="button" class="btn btn-outline-success position-absolute " style="bottom: 20%; right: 10%;"><a class=" text-decoration-none text-white" href="/product/shop-women"> SHOP WOMEN</a> </button>
+        
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<style>
+
+.custom-btn {
+        font-size: 20px;
+        padding: 10px 20px;
+    }
+ 
+
+@media (max-width: 767px) {
+    .banner-image {
+      /* Different styles for smaller screens */
+      object-fit: cover;
+      object-position: 75% center;
+      height: 400px;
+      /* Adjust the height for smaller screens */
+    }
+
+  }
+
+  .carousel-button-container {
+  position: absolute;
+  left: 28%;
+  bottom: 150px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+  
+
+  @media (max-width: 576px) {
+  .carousel-button-container {
+    left: 50%;
+    bottom: 50px;
+  }
+}
+
+.carousel-caption {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .responsive-text {
+      display: block;
+      font-size: 45px
+    }
+  
+
+  @media (min-width: 768px) {
+    .responsive-text {
+      display: none;
+    }
+  }
+ 
+ 
+/* Media query for smaller screens */
+</style>
+
+
+
+<%- include('./partials/footer') %>

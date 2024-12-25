@@ -1,0 +1,218 @@
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+<section class="" style="margin-top: 120px;">
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center ">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+    
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand"><h4>YOUR CART</h4></a>
+      <a class="text-dark" href="/product/shop-men">Continue Shopping</a>
+    </div>
+  </nav>
+
+
+  <section class="h-100 h-custom">
+    <div class="container h-100 ">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+
+        <% if (cartItems.length === 0) { %>
+          <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px; margin-top: 20px; padding-top: 50px; padding-bottom: 50px; ">
+            <div class="card-body p-4">
+  
+              <h3 class="text-center" >YOUR CART IS EMPTY</h3>
+  
+            </div>
+          </div>
+          <% } else { %>
+
+
+        <div class="col">
+  
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th ></th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <% let total = 0; %>
+                <% let subtotal = 0; %>
+                <% cartItems.forEach(function(cartItem) { %>
+                  <% const product = cartItem.product_id; %>
+
+                 
+                  <tr>
+                    <td scope="row">
+                      <div class="d-flex align-items-center">
+                        <img src="/images/<%= product.image[0] %>" class="img-fluid rounded-3" style="width: 120px;" alt="">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="align-middle">
+                        <p class="mb-0"><%= product.title %></p>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <div class="d-flex flex-row">
+                        <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                        <input id="quantity-<%= cartItem._id %>" min="1" name="quantity" value="<%= cartItem.quantity %>" type="number" class="form-control form-control-sm" style="width: 50px;" data-cart-item-id="<%= cartItem._id %>">
+                         <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"></button>
+                        
+                        
+                        <!-- Button trigger modal -->
+<button type="button" class="fa fa-trash-o text-dark border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5 " id="exampleModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this item ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="/cart/delete/<%= cartItem._id %>" class="btn btn-danger" >Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+                        
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <p class="mb-0" style="font-weight: 500;">₹ <span id="price-<%= cartItem._id %>"><%= product.price * cartItem.quantity %></span> </p>
+                      <% subtotal += product.price * cartItem.quantity %>
+                      <% total += product.price * cartItem.quantity %>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
+            <div class="card-body p-4">
+  
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4 mb-md-0">
+                  
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-6">
+                  <div class="row">
+                    <div class="col-12 col-xl-6">
+                      
+  
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="col-lg-4 col-xl-3">
+                  <div class="d-flex justify-content-between" style="font-weight: 500;">
+                    <p class="mb-2">Subtotal</p>
+                    <p class="mb-2">Rs. <%= subtotal %>  </p>
+                  </div>
+  
+                  
+  
+                  <hr class="my-4">
+  
+                  <div class="d-flex justify-content-between mb-4" style="font-weight: 500;">
+                    <p class="mb-2">Total (tax included)</p>
+                    <p class="mb-2">Rs.  <%= total %>  </p>
+                  </div>
+                  
+                  <form method="GET" action="/checkout">
+                  <button type="submit" class="btn btn-dark btn-block btn-lg">
+                    <div class="d-flex justify-content-between">
+                      <span>CHECK OUT</span>
+                    </div>
+                  </button>
+                </form>
+  
+                </div>
+              </div>
+  
+            </div>
+          </div>
+  
+        </div>
+
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <%- include('./partials/footer') %>
+
+  <script>
+    // Add event listeners to quantity input fields
+   // Add event listeners to quantity input fields
+const quantityInputs = document.querySelectorAll('input[name="quantity"]');
+quantityInputs.forEach(input => {
+  input.addEventListener('change', event => {
+    const cartItemId = input.dataset.cartItemId;
+    const newQuantity = event.target.value;
+
+    // Send POST request to update quantity in database
+    fetch(`/cart/${cartItemId}/quantity`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ quantity: newQuantity })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
+      // Check if the response is JSON
+      const contentType = response.headers.get('content-type');
+      if (contentType.includes('application/json')) {
+        return response.json();
+      } else {
+        // Handle non-JSON response
+        console.log('Non-JSON response:', response);
+        location.reload();
+      }
+    })
+    .then(data => {
+      if (typeof data === 'string') {
+        // Handle non-JSON response
+       
+      } else {
+        // Update product price in HTML dynamically
+        console.log('Non-JSON response:', data);
+        const priceElement = document.querySelector(`#price-${data.cartItem._id}`);
+        priceElement.textContent = data.cartItem.product_id.price * data.cartItem.quantity;
+
+
+        
+      }
+    })
+    .catch(error => console.error(error));
+  });
+});
+
+  </script>

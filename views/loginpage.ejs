@@ -1,0 +1,102 @@
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+    
+<section class="" style="margin-top: 120px;">
+  <div class="container ">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card" >
+          <div class="card-body text-center">
+
+            <form action="/home" method="post">
+            
+              <div class="mb-md-5 mt-md-4 ">
+                
+                
+
+                <h2 class="fw-bold  text-uppercase">Login</h2>
+                <p class="text-dark-50 ">Please enter your login and password!</p>
+                       
+                <% if(typeof errmessage !== "undefined"){ %>
+                  <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                  <p><%= errmessage %></p>
+                </div>
+                  <% } %>
+
+                  <% if(typeof errmessage1 !== "undefined"){ %>
+                    <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                    <p><%= errmessage1 %></p>
+                  </div>
+                    <% } %>
+
+                    <% if(typeof errmessage3 !== "undefined"){ %>
+                      <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                      <p><%= errmessage3 %></p>
+                    </div>
+                      <% } %>
+
+                    <% if(typeof succmessage2 !== "undefined"){ %>
+                      <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                      <p><%= succmessage2 %></p>
+                    </div>
+                      <% } %>
+
+                      <% if(typeof errmessage2 !== "undefined"){ %>
+                        <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                        <p><%= errmessage2 %></p>
+                      </div>
+                        <% } %>
+
+                        <% if(typeof message2 !== "undefined"){ %>
+                          <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                          <p><%= message2 %></p>
+                        </div>
+                          <% } %>
+                
+              
+                <div class="form-outline form-white ">
+                  <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email" />
+                  <label class="form-label" for="typeEmailX"></label>
+                </div>
+  
+                <div class="form-outline form-white ">
+                  <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password" />
+                  <label class="form-label" for="typePasswordX"></label>
+                </div>
+
+                <% if(typeof errpass !== "undefined"){ %>
+                  <div class="alert alert-warning text-center" style="height: 50px;" role="alert">
+                  <p><%= errpass%></p>
+                </div>
+                  <% } %>
+  
+                <div class="col">
+                 
+                  <a class="text-dark" href="/login-recover">Forgot password?</a>
+                </div>
+              </div>
+            
+                <button class="btn btn-outline-dark btn-lg " type="submit">Login</button>
+                <p class="pt-3"><a href="/signup" class="text-dark fw-bold ">Create Account</a> </p>
+  
+              
+            </form>
+  
+
+           
+          
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      
+<%- include('./partials/footer') %>
+
+
+
+   
+   
+  

@@ -1,0 +1,75 @@
+<%- include('./partials/adminpanel-layout') %>
+<main style="margin-top: 58px;">
+    <div class="container bg-light" style="width: 100%; height: 600px;"  >
+
+        <section class="p-md-2 mx-md-2 text-center text-lg-left grey z-depth-1">
+            <div class="row d-flex justify-content-center">
+              <div class="col-12 col-md-12">
+                
+                 
+          
+          <div class="mt-4">
+                 <table id="example" class="table table-striped" style="width:100%">
+                  <thead class="table-dark">
+                      <tr>
+                          <th>ID</th>
+                          <th>First Name</th>
+                          <th>Second Name</th>
+                          <th>Email</th>
+                          <th>Password</th>
+                          <th>Status</th>
+                          
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <% cusDetails.forEach(cdetails =>{%>
+
+                        
+                      <tr>
+                          <td><%= cdetails._id %></td>
+                          <td><%= cdetails.fname %></td>
+                          <td><%= cdetails.lname %></td>
+                          <td><%= cdetails.email %></td>
+                          <td><%= cdetails.password %></td>
+                          <td>
+
+                            <form action="/admin/customer/<%= cdetails._id %>/block" method="post">
+                                <button type="submit" name="blocked" class="btn btn-success" value="<%= !cdetails.blocked %>">
+                                  <%= cdetails.blocked ? 'Unblock' : 'Block' %> 
+                                </button>
+                              </form>
+
+
+                          </td>
+                          
+                      </tr>
+                    
+                  </tbody>
+                <%})%>
+              </table>
+                  
+          </div>
+               </div>   
+             
+          </div>
+          
+          </section>
+
+    
+    </div>
+
+     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+
+ $(document).ready(function () {
+    $('#example').DataTable();
+});
+</script>
+   
+  </main>
+
+
+ 
+

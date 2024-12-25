@@ -1,0 +1,42 @@
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+    
+<section class="" style="margin-top: 120px;">
+  <div class="container ">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card" >
+          <div class="card-body text-center">
+
+            <form action="/reset-password" method="post">
+            
+              <div class="mb-md-5 mt-md-4 ">
+                
+                
+                <h2 class="fw-bold  text-uppercase">RESET ACCOUNT PASSWORD</h2>
+                <p class="text-dark-50 ">Enter a new password for <%= data.email %>  </p>
+                
+                <div class="form-outline form-white ">
+                    <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password" />
+                    <input type="hidden" name="user_id" value="<%= user_id %>">
+                    <label class="form-label" for="typePasswordX"></label>
+                  </div>
+  
+              </div>
+            
+                <button class="btn btn-outline-dark btn-lg " type="submit">RESET PASSWORD</button>
+                
+  
+             
+            </form>
+        
+        
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      
+<%- include('./partials/footer') %>

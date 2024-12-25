@@ -1,0 +1,168 @@
+<%- include('./partials/lsheader') %>
+<%- include('./partials/header') %>
+
+
+  <main >
+    <div class="container bg-light" style="width: 100%; height: auto; margin-top: 120px;"  >
+
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand">
+
+         
+            <label for="sort-select" class="form-label"></label>
+
+            <form action="/product/shop-women" method="GET">
+              <div class="d-flex">
+                <select class="form-select me-2" id="sort" name="sort" aria-label="Default select example" style="height: 40px;">
+                  <option value="">Select</option>
+                  <option value="price_asc" {{ selectedSort === 'price_asc' ? 'selected' : '' }}>Price: Low to High</option>
+                  <option value="price_desc" {{ selectedSort === 'price_desc' ? 'selected' : '' }}>Price: High to Low</option>
+                  <option value="title_asc" {{ selectedSort === 'title_asc' ? 'selected' : '' }}>Title: A to Z</option>
+                  <option value="title_desc" {{ selectedSort === 'title_desc' ? 'selected' : '' }}>Title: Z to A</option>
+                </select>
+                <button type="submit" id="submit" value="Sort" class="btn btn-primarybtn btn-outline-success btn-sm mt-2">
+                  Sort
+                </button>
+              </div>
+            </form>
+           
+          </a>
+
+      
+
+          <form action="/product/shop-women" method="GET">
+            <div class="d-flex" style="margin-top: 35px">
+            
+           
+              <select class="form-select me-2" name="category_title" id="category-select">
+                <option value="">All Products</option>
+                <% const uniqueTitles = []; %>
+                <% productDisplay.forEach((proddisplay, index) => {
+                      const title = proddisplay.category_id.title;
+                      console.log("abc", proddisplay)
+                      if (!uniqueTitles.includes(title)) {
+                        uniqueTitles.push(title);
+                %>
+                <option value="<%= title %>"><%= title %></option>
+               
+                <%   }
+                    });
+                %>
+                <!-- Add more options for all available categories -->
+              </select>
+            <button type="submit" class="btn btn-primarybtn btn-outline-success">Filter</button>
+          </div>
+          </form>
+
+          
+
+
+          <form class="d-flex" role="search" style="margin-top: 25px;">
+            <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" > Search</button>
+          </form>
+        </div>
+      </nav>
+
+      
+      <% if (productDisplay.length === 0) { %>
+        <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px; margin-top: 20px; padding-top: 50px; padding-bottom: 50px; ">
+          <div class="card-body p-4">
+
+            <h3 class="text-center" >NO ITEMS FOUND</h3>
+
+          </div>
+        </div>
+        <% } else { %>
+
+      
+      <div class="row">
+        <% productDisplay.forEach((proddisplay, index) => { %>
+          <div class="col-md-3 col-6 d-flex mt-4">
+            <div class="card">
+              <div id="carouselExample<%= proddisplay._id %>" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="xzoom-container">
+                      <a href="/product/<%= proddisplay._id %>">
+                        <img src="/images/<%= proddisplay.image[0] %>" class="card-img-top" style="width: 100%; height: auto; max-height: 250px;" alt="...">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <a href="/product/<%= proddisplay._id %>">
+                      <img src="/images/<%= proddisplay.image[1] %>" class="card-img-top" style="width: 100%; height: auto; max-height: 250px;" alt="...">
+                    </a>
+                  </div>
+                  <div class="carousel-item">
+                    <a href="/product/<%= proddisplay._id %>">
+                      <img src="/images/<%= proddisplay.image[2] %>" class="card-img-top" style="width: 100%; height: auto; max-height: 250px;" alt="...">
+                    </a>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample<%= proddisplay._id %>" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample<%= proddisplay._id %>" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title" style="font-size: 1.2rem;"><%= proddisplay.title %></h5>
+                <p class="card-text" style="display: none;"><strong><%= proddisplay.category_id.title %></strong></p>
+                <p class="card-text" style="font-size: 0.9rem;">Rs. <%= proddisplay.price %></p>
+                <% if (typeof loggedIn !== "undefined") { %> 
+                <a class="nav-link text-black" href="#" onclick="addToWishlist('<%= proddisplay._id %>')"><i class="fa-regular fa-heart"></i></a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      
+      <% } %> 
+
+      <nav aria-label="Page navigation example" style="margin-top: 20px;">
+        <ul class="pagination justify-content-center">
+         
+          <%
+          for(let j=1; j<=totalPages; j++){
+            %>
+          <li class="page-item"><a class="page-link text-dark"   href="?page=<%= j %>"><%= j %></a></li>
+          <%
+          } %>
+         
+        </ul>
+      </nav>
+     
+    
+    </div>
+  </div>
+
+  
+
+  <script>
+    function addToWishlist(productId) {
+    $.ajax({
+        type: 'POST',
+        url: '/wishlist',
+        data: { product_id: productId },
+        success: function(response) {
+            alert(response);
+        },
+        error: function(error) {
+            console.log(error);
+            alert('Error adding product to wishlist.');
+        }
+    });
+}
+</script>
+
+
+   
+  
+   
+  </main>
