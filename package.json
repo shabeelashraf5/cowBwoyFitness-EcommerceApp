@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "style": "npx tailwindcss -i ./public/stylesheets/style.css -o ./src/output.css --watch"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -41,6 +42,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "tailwindcss": "^3.4.17"
   }
 }
